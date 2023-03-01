@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -43,9 +44,17 @@ class InvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) :RedirectResponse
     {
-        
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'invoice_no' => 'required',
+        ]);
+
+        $request->user()->invoices()->create($validated);
+
+        return redirect(route('invoices.index'));
+
     }
 
     /**
