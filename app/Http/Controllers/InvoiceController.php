@@ -17,15 +17,9 @@ class InvoiceController extends Controller
      */
     public function index(): View
     {
-
-        $data = [
-            'title' => 'inv 1',
-            'invoiceNo' => 'INV-230101-001',
-            'date' => date('m/d/Y'),
-        ];
-
-        return view('invoice.index', compact('data'));
-
+        return view('invoice.index', [
+            'invoices' => Invoice::with('user')->latest()->get(),
+        ]);
     }
 
     /**
