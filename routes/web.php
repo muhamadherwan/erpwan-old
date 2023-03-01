@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('invoices', InvoiceController::class)
-    ->only(['index','create', 'store', 'edit', 'update', 'show', 'destroy'])
+    ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

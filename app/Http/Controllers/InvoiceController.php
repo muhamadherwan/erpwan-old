@@ -100,8 +100,9 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Invoice $invoice): RedirectResponse
     {
-        //
+       $invoice->delete();
+       return redirect(route('invoices.index'));
     }
 }
