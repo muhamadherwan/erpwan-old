@@ -70,7 +70,9 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice): View
     {
-        return view('invoice.edit');
+        return view('invoice.edit',[
+            'invoice' => $invoice,
+        ]);
     }
 
     /**
@@ -82,7 +84,14 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'invoice_no' => 'required',
+        ]);
+
+        $invoice->update($validated);
+
+        return redirect(route('invoices.index'));
     }
 
     /**
